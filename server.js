@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const fs = require('fs');                                    // ADD THIS
 const BetterSqlite3 = require('better-sqlite3');
 const { PrismaBetterSqlite3 } = require('@prisma/adapter-better-sqlite3');
 const { PrismaClient } = require('./generated/prisma');
@@ -25,7 +26,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// LOGIN ROUTE - reads from users.json
+app.post('/api/login', (req, res) => {
+  console.log("Received login:", req.body);
+  const { username, password } = req.body;
 
+  const users = fs.existsSync('users.json')
+    ? JSON.parse(fs.readFileSync('users.json'))
+    : [];
+
+  const match = users.find(u => u.username === username && u.password === password);
+
+  if (match) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false, message: "Invalid username or password" });
+  }
+});
+
+// EMAIL ROUTE - unchanged
 app.post('/send-email', async (req, res) => {
   console.log('Request received:', req.body);
   const { toEmail, recipientName } = req.body;
@@ -54,7 +73,6 @@ app.post('/send-email', async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
-
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 
