@@ -96,12 +96,30 @@ export default function CanvasTrinity() {
   const [hoveredBtn, setHoveredBtn] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");        // ADD THIS
+
+  const handleLogin = async () => {              // ADD THIS FUNCTION
+    try {
+      const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        router.push('/DuoTrinity');
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch (err) {
+      setError("Could not connect to server");
+    }
+  };
 
   return (
     <div style={styles.body}>
       <div style={styles.card}>
         <div style={styles.topBar} />
-
         <div style={styles.cardBody}>
           <div style={styles.logoRow}>
             <div style={styles.trinity}>
@@ -131,11 +149,12 @@ export default function CanvasTrinity() {
             value={password}
             onChangeText={setPassword}
           />
+          {error ? <p style={{ color: "red", fontSize: 13 }}>{error}</p> : null}
         </div>
 
         <button
           style={styles.btn}
-          onClick={() => router.push('/DuoTrinity')}
+          onClick={handleLogin}                  // CHANGED from router.push
           onMouseEnter={() => setHoveredBtn("login")}
           onMouseLeave={() => setHoveredBtn(null)}
         >

