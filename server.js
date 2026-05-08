@@ -54,13 +54,13 @@ app.post('/send-email', async (req, res) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: toEmail,
-    subject: 'Check out our website!',
+    subject: 'Recent Canvas Notifications',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Hello, ${recipientName || 'there'}!</h2>
-        <p>We'd love for you to visit our website. Click the button below:</p>
+        <p>You're receiving this email because you have recent notifications in Canvas.</p>
+        <p>A multiple notifications have been added to your course.</p>
         <a href="${process.env.SITE_URL}" style="display: inline-block; background-color: #4A90E2; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-size: 16px; margin: 16px 0;">
-          Visit Our Page
+          Click to View
         </a>
       </div>
     `,
