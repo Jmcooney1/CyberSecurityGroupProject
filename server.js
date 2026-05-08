@@ -77,6 +77,7 @@ app.post('/send-email', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
+console.log('Server is on Port 3000');
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught error:', err);

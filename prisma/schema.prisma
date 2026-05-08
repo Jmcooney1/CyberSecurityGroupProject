@@ -21,7 +21,7 @@ model User{
 
 model EmailLog{
   id          Int         @id @default(autoincrement())
-  toEmail       String
+  toEmail     String
   sentAt      DateTime    @default(now())
-  success      Boolean
+  success     Boolean
 }

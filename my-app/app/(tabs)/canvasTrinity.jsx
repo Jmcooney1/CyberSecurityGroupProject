@@ -98,23 +98,6 @@ export default function CanvasTrinity() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");        // ADD THIS
 
-  const handleLogin = async () => {              // ADD THIS FUNCTION
-    try {
-      const res = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        router.push('/DuoTrinity');
-      } else {
-        setError("Invalid username or password");
-      }
-    } catch (err) {
-      setError("Could not connect to server");
-    }
-  };
 
   const handleLogin = async () => {
     try {
