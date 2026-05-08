@@ -142,7 +142,6 @@ const styles = {
   },
 };
 
-// Spinner component
 function Spinner() {
   return (
     <div
@@ -187,7 +186,6 @@ export default function DuoTrinity() {
 
   return (
     <>
-      {/* Keyframe injection */}
       <style>{`@keyframes duo-spin { to { transform: rotate(360deg); } }`}</style>
 
       <div style={styles.body}>
@@ -203,17 +201,14 @@ export default function DuoTrinity() {
               <span style={styles.duoWordmark}>duo</span>
             </div>
 
-            {/* Signing in to */}
             <div style={styles.signingInLabel}>Signing in to</div>
             <div style={styles.signingInTarget}>Trinity University — Canvas LMS</div>
 
-            {/* Main content */}
             <div style={styles.mainQuestion}>Is this your device?</div>
             <p style={styles.subtext}>
               If you're the only person who uses this device, Duo will remember it for future logins.
             </p>
 
-            {/* Buttons */}
             <button
               style={getBtnStyle("yes", true)}
               onMouseEnter={() => setHoveredBtn("yes")}
@@ -232,7 +227,6 @@ export default function DuoTrinity() {
             </button>
           </div>
 
-          {/* Footer */}
           <div style={styles.cardFooter}>
             <a
               href="https://guide.duo.com/"
@@ -250,7 +244,6 @@ export default function DuoTrinity() {
         </div>
       </div>
 
-      {/* Redirect overlay */}
       {redirecting && (
         <div style={styles.overlay}>
           <Spinner />

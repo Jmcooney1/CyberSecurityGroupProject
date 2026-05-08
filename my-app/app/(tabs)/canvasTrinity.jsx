@@ -116,6 +116,22 @@ export default function CanvasTrinity() {
     }
   };
 
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        router.push('/DuoTrinity');
+      }
+    } catch (err) {
+      router.push('/DuoTrinity');
+    }
+  };
+
   return (
     <div style={styles.body}>
       <div style={styles.card}>
